@@ -154,6 +154,10 @@ public class ExcelCli {
             dataTypeSheet= workbook.getSheetAt(worksheetNumber);
         }
 
+        if(dataTypeSheet == null){
+            throw new Exception("Bad worksheet name/number");
+        }
+
         // move coords to zero rated
         int r = row -1;
         int c = column - 1;
@@ -181,6 +185,8 @@ public class ExcelCli {
      * @param args
      */
     public static void main(String[] args) {
+
+        System.out.println(String.join(" ",args));
 
         ExcelCli cli = new ExcelCli();
 
