@@ -1,0 +1,20 @@
+
+
+excelextract:
+
+ -ls {filepathToXLS}
+>> list worksheets
+
+ --sheet {num|name}
+>> print worksheet contents ?
+
+ --sheet {num|name} --col {colId} --row {rowId}
+ >> extract cell value
+
+ --errorOnEmpty
+ >> error if empty
+
+
+ --old
+ >> use the horrible file system type (default is Xml type)
+
