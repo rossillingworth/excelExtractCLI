@@ -16,6 +16,7 @@ package com.techmale.excel; /**
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
+import com.beust.jcommander.ParameterException;
 import com.beust.jcommander.converters.FileConverter;
 import com.beust.jcommander.validators.PositiveInteger;
 import com.sun.org.apache.xpath.internal.operations.Number;
@@ -51,6 +52,9 @@ public class ExcelCli {
 
     @Parameter(names = "--col", description = "Data cell column (eg: A -> ZZZZ)")
     private Integer column;
+
+    @Parameter(names = "--debug", description = "Show debugging output")
+    private boolean debug = false;
 
 
     // ######################################################
@@ -186,15 +190,24 @@ public class ExcelCli {
      */
     public static void main(String[] args) {
 
-        System.out.println(String.join(" ",args));
+        if(String.join("",args).indexOf("--debug")>-1){
+            System.out.println(String.join(" ",args));
+        }
 
-        ExcelCli cli = new ExcelCli();
 
-        JCommander.newBuilder()
-                .addObject(cli)
-                .build()
-                .parse(args);
-        cli.start();
+        try {
+
+            ExcelCli cli = new ExcelCli();
+            JCommander.newBuilder()
+                    .addObject(cli)
+                    .build()
+                    .parse(args);
+            cli.start();
+
+        }  catch(ParameterException pe){
+            System.err.println("Error:");
+            System.err.println(pe.getMessage());
+        }
 
     }
 
